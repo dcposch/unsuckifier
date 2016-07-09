@@ -24,7 +24,7 @@ cp -R uAssets/thirdparties/www.malwaredomainlist.com          $DES/thirdparties/
 
 mkdir $DES/ublock
 cp -R uAssets/filters/*                                       $DES/ublock/
-cp -R ./assets/ublock/filter-lists.json                          $DES/ublock/
+cp -R ./tools/filter-lists.json                               $DES/ublock/
 
 cp uAssets/checksums/ublock0.txt                              $DES/checksums.txt
 
