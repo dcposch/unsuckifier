@@ -76,10 +76,10 @@ var onTemporarilyAllowLargeMediaElements = function(details, tab) {
 /******************************************************************************/
 
 var onEntryClicked = function(details, tab) {
-    if ( details.menuItemId === 'uBlock0-blockElement' ) {
+    if ( details.menuItemId === 'Unsuckifier-blockElement' ) {
         return onBlockElement(details, tab);
     }
-    if ( details.menuItemId === 'uBlock0-temporarilyAllowLargeMediaElements' ) {
+    if ( details.menuItemId === 'Unsuckifier-temporarilyAllowLargeMediaElements' ) {
         return onTemporarilyAllowLargeMediaElements(details, tab);
     }
 };
@@ -88,13 +88,13 @@ var onEntryClicked = function(details, tab) {
 
 var menuEntries = [
     {
-        id: 'uBlock0-blockElement',
+        id: 'Unsuckifier-blockElement',
         title: vAPI.i18n('pickerContextMenuEntry'),
         contexts: ['all'],
         documentUrlPatterns: ['https://*/*', 'http://*/*']
     },
     {
-        id: 'uBlock0-temporarilyAllowLargeMediaElements',
+        id: 'Unsuckifier-temporarilyAllowLargeMediaElements',
         title: vAPI.i18n('contextMenuTemporarilyAllowLargeMediaElements'),
         contexts: ['all'],
         documentUrlPatterns: ['https://*/*', 'http://*/*']

@@ -2565,7 +2565,7 @@ vAPI.toolbarButton = {
             // Sanity check
             attempts = (attempts || 0) + 1;
             if ( attempts > 1/*000*/ ) {
-                console.error('uBlock0> resizePopupDelayed: giving up after too many attempts');
+                console.error('Unsuckifier> resizePopupDelayed: giving up after too many attempts');
                 return;
             }
 
@@ -2644,7 +2644,7 @@ vAPI.toolbarButton = {
     }
 
     tbb.codePath = 'legacy';
-    tbb.id = 'uBlock0-legacy-button';   // NOTE: must match legacy-toolbar-button.css
+    tbb.id = 'Unsuckifier-legacy-button';   // NOTE: must match legacy-toolbar-button.css
     tbb.viewId = tbb.id + '-panel';
 
     var styleSheetUri = null;
@@ -3121,7 +3121,7 @@ vAPI.contextMenu = (function() {
             layoutChanged = false,
             contextMenu = doc.getElementById('contentAreaContextMenu'),
             newEntries = clientEntries,
-            oldMenuitems = contextMenu.querySelectorAll('[data-uBlock0="menuitem"]'),
+            oldMenuitems = contextMenu.querySelectorAll('[data-Unsuckifier="menuitem"]'),
             newMenuitems = [],
             n = Math.max(clientEntries.length, oldMenuitems.length),
             menuitem, newEntry;
@@ -3135,7 +3135,7 @@ vAPI.contextMenu = (function() {
                 layoutChanged = true;
             } else if ( !menuitem && newEntry ) {
                 menuitem = doc.createElement('menuitem');
-                menuitem.setAttribute('data-uBlock0', 'menuitem');
+                menuitem.setAttribute('data-Unsuckifier', 'menuitem');
                 menuitem.addEventListener('command', onCommand);
             }
             if ( !menuitem ) {
@@ -3154,7 +3154,7 @@ vAPI.contextMenu = (function() {
             return;
         }
         // No entry: remove submenu if present.
-        var menu = contextMenu.querySelector('[data-uBlock0="menu"]');
+        var menu = contextMenu.querySelector('[data-Unsuckifier="menu"]');
         if ( newMenuitems.length === 0 ) {
             if ( menu !== null ) {
                 menu.parentNode.removeChild(menuitem);
@@ -3176,15 +3176,15 @@ vAPI.contextMenu = (function() {
         if ( menu === null ) {
             menu = doc.createElement('menu');
             menu.setAttribute('label', vAPI.app.name);
-            menu.setAttribute('data-uBlock0', 'menu');
+            menu.setAttribute('data-Unsuckifier', 'menu');
             menu.setAttribute('class', 'menu-iconic');
             menu.setAttribute('image', vAPI.getURL('img/browsericons/icon16.svg'));
             contextMenu.insertBefore(menu, doc.getElementById('inspect-separator'));
         }
-        var menupopup = contextMenu.querySelector('[data-uBlock0="menupopup"]');
+        var menupopup = contextMenu.querySelector('[data-Unsuckifier="menupopup"]');
         if ( menupopup === null ) {
             menupopup = doc.createElement('menupopup');
-            menupopup.setAttribute('data-uBlock0', 'menupopup');
+            menupopup.setAttribute('data-Unsuckifier', 'menupopup');
             menu.appendChild(menupopup);
         }
         for ( i = 0; i < newMenuitems.length; i++ ) {
@@ -3241,7 +3241,7 @@ vAPI.contextMenu = (function() {
         if ( contextMenu !== null ) {
             contextMenu.removeEventListener('popupshowing', onMenuShowing);
         }
-        var menuitems = win.document.querySelectorAll('[data-uBlock0]'),
+        var menuitems = win.document.querySelectorAll('[data-Unsuckifier]'),
             menuitem;
         for ( var i = 0; i < menuitems.length; i++ ) {
             menuitem = menuitems[i];
@@ -3267,7 +3267,7 @@ vAPI.contextMenu = (function() {
 /******************************************************************************/
 
 var optionsObserver = (function() {
-    var addonId = 'uBlock0@raymondhill.net';
+    var addonId = 'Unsuckifier@raymondhill.net';
 
     var commandHandler = function() {
         switch ( this.id ) {

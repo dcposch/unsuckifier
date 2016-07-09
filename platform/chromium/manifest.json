@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
 
-    "name": "uBlock Origin",
+    "name": "Unsuckifier",
     "version": "1.7.5",
 
     "default_locale": "en",
@@ -20,7 +20,7 @@
         "default_popup": "popup.html"
     },
 
-    "author": "All uBlock Origin contributors",
+    "author": "All uBlock Origin and Unsuckifier contributors",
     "background": {
         "page": "background.html"
     },
@@ -62,7 +62,7 @@
         "http://*/*",
         "https://*/*"
     ],
-    "short_name": "uBlock₀",
+    "short_name": "Unsuckifier",
     "storage": {
         "managed_schema": "managed_storage.json"
     }

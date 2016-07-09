@@ -2,10 +2,10 @@
 #
 # This script assumes a linux environment
 
-echo "*** uBlock0.chromium: Creating web store package"
-echo "*** uBlock0.chromium: Copying files"
+echo "*** Unsuckifier.chromium: Creating web store package"
+echo "*** Unsuckifier.chromium: Copying files"
 
-DES=dist/build/uBlock0.chromium
+DES=dist/build/Unsuckifier.chromium
 rm -rf $DES
 mkdir -p $DES
 
@@ -25,10 +25,10 @@ cp platform/chromium/*.json $DES/
 cp LICENSE.txt              $DES/
 
 if [ "$1" = all ]; then
-    echo "*** uBlock0.chromium: Creating package..."
+    echo "*** Unsuckifier.chromium: Creating package..."
     pushd $(dirname $DES/) > /dev/null
-    zip uBlock0.chromium.zip -qr $(basename $DES/)/*
+    zip Unsuckifier.chromium.zip -qr $(basename $DES/)/*
     popd > /dev/null
 fi
 
-echo "*** uBlock0.chromium: Package done."
+echo "*** Unsuckifier.chromium: Package done."
