@@ -16,8 +16,8 @@
             "19": "img/browsericons/icon19.png",
             "38": "img/browsericons/icon38.png"
         },
-        "default_title": "uBlock Origin",
-        "default_popup": "popup.html"
+        "default_title": "Unsuckifier",
+        "default_popup": "unsuckifier.html"
     },
 
     "author": "All uBlock Origin and Unsuckifier contributors",
