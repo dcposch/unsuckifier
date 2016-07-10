@@ -1236,3 +1236,10 @@ __$dc-defuser.js application/javascript
 		Math.mt_random = function() { throw new TypeError(); }.bind();
 	}
 })();
+
+
+# TODO dcposch: move everything below this line to its own file
+# TODO dcposch: ideally, replace this shit with CSS injection thru vAPI
+# nytimes.com
+nytimes.com.js application/javascript
+console.log('HELLO NYTIMES!')

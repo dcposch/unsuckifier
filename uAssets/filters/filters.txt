@@ -419,3 +419,6 @@ mangas-fr.com##script:inject(__$dc-defuser.js)
 
 ! https://github.com/gorhill/uBlock/issues/1789
 @@||central.bhaskar.com/revenue/blocker/ads.js
+
+! TODO dcposch: move everything below this line to its own frame
+nytimes.com##script:inject(nytimes.com.js)
