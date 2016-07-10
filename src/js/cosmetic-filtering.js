@@ -1123,9 +1123,30 @@ FilterContainer.prototype.retrieveScriptTags = function(domain, hostname) {
         return;
     }
 
-    // Search this.scriptNames for foo.bar.baz.com, ..., finally for baz.com
+    // Compile list of javascript snippets to inject
     var out = [],
         hn = hostname, pos, rnames, i, content;
+
+    // TODO dcposch: clean up this function into two stages: get script names
+    // to use, then call resourceContentFromName
+    var blocksForDomain = µb.blocksEnabled[domain]
+    if (!blocksForDomain) blocksForDomain = µb.defaultBlocksEnabled
+    Object.keys(blocksForDomain).forEach(function (blockId) {
+      if (!blocksForDomain[blockId]) return;
+
+      var filenames = ['block-' + blockId + '.js', 'block-' + blockId + '-' + domain + '.js'];
+      filenames.forEach(function (filename) {
+        content = reng.resourceContentFromName(filename, 'application/javascript');
+        if (!content) {
+          console.log('SKIPPING BLOCK ' + filename)
+          return;
+        }
+        console.log('INCLUDING BLOCK ' + filename)
+        out.push(content);
+      });
+    });
+
+    // Search this.scriptNames for foo.bar.baz.com, ..., finally for baz.com
     for (;;) {
         rnames = this.scriptTags[hn];
         i = rnames && rnames.length || 0;

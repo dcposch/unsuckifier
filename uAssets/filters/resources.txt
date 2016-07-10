@@ -1243,7 +1243,17 @@ __$dc-defuser.js application/javascript
 # nytimes.com
 nytimes.com.js application/javascript
 (function() {
-	console.log('NYTIMES STYLE 1');
+	console.log('NYTIMES STYLE NOOP');
+})();
+
+theverge.com.js application/javascript
+(function() {
+	console.log('VERGE STYLE NOOP');
+})();
+
+block-reader-nytimes.com.js application/javascript
+(function() {
+	console.log('NYTIMES STYLE B');
 	var css = 'nav#ribbon{visibility:hidden}div#shell{padding-top:0!important}aside.module.trending-module.nocontent.robots-nocontent,div#supplemental-1,section#related-combined-coverage,section#whats-next{display:none}';
 	var style = document.createElement('style');
 	style.type = 'text/css';
@@ -1251,9 +1261,9 @@ nytimes.com.js application/javascript
 	document.head.appendChild(style);
 })();
 
-theverge.com.js application/javascript
+block-reader-theverge.com.js application/javascript
 (function() {
-	console.log('VERGE STYLE 2');
+	console.log('VERGE STYLE B');
 	var css = '.m-linkset,ul.p-entry-header__labels,ul.p-entry-nav{display:none}.m-entry__sidebar{visibility:hidden}.m-big-stories__main{display:none}';
 	var style = document.createElement('style');
 	style.type = 'text/css';

@@ -433,7 +433,7 @@ var onMessage = function(request, sender, callback) {
         break;
 
     case 'setDomainBlock':
-        µb.setDomainBlock(request.domain, request.blockId)
+        µb.setDomainBlock(request.domain, request.blockId, request.enable)
         break;
 
     default:

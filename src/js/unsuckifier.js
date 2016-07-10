@@ -20,9 +20,17 @@ function initBlockSettings () {
     elem.addEventListener('click', function () {
       document.querySelector('.block-setting-option.selected').classList.remove('selected')
       elem.classList.add('selected')
+      // TODO: turn on or off
+    })
+  })
+
+  document.querySelectorAll('.block-setting-toggle').forEach(function (elem) {
+    elem.addEventListener('click', function () {
+      elem.classList.toggle('selected')
+      var enabled = elem.classList.contains('selected')
       messaging.send(
         'popupPanel',
-        { what: 'setDomainBlock', domain: tabDomain, blockId: elem.dataset.id }
+        { what: 'setDomainBlock', domain: tabDomain, blockId: elem.dataset.id, enable: enabled}
       )
     })
   })

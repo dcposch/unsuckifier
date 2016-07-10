@@ -330,10 +330,23 @@ var matchWhitelistDirective = function(url, hostname, directive) {
 
 /******************************************************************************/
 
-µBlock.setDomainBlock = function(domain, blockId) {
-  // TODO: fetch block by blockId
-  // TODO: apply block (modifies per-domain settings)
-  // TODO: save preference to stoage.js
+// TODO dcposch: persist
+µBlock.defaultBlocksEnabled = {
+  reader: true,
+  wow: false
+}
+µBlock.blocksEnabled = {}
+
+
+µBlock.setDomainBlock = function(domain, blockId, enabled) {
+    // TODO: fetch block by blockId
+    // TODO: apply block (modifies per-domain settings)
+    // TODO: save preference to stoage.js
+    var blocksForDomain = this.blocksEnabled[blockId]
+    if (!blocksForDomain) blocksForDomain = this.blocksEnabled[blockId] = JSON.parse(JSON.stringify(µBlock.defaultBlocksEnabled))
+    blocksForDomain[blockId] = enabled
+
+    console.log('setDomainBlock, new blocksEnabled: ' + JSON.stringify(this.blocksEnabled))
 }
 
 /******************************************************************************/

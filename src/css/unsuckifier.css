@@ -5,6 +5,20 @@ body {
   -webkit-user-select: none;
 }
 
+.logo {
+  display: block;
+  width: 128px;
+  height: 128px;
+  margin: 10px auto;
+}
+
+h1 {
+  text-align: center;
+  color: #888;
+  font-size: 20px;
+}
+
+.block-setting-toggle,
 .block-setting-option {
   color: #fff;
   background-color: #aaa;
@@ -13,6 +27,7 @@ body {
   border-radius: 5px;
 }
 
+.block-setting-toggle.selected,
 .block-setting-option.selected {
   background-color: #0af;
 }
