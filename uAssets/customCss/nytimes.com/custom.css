@@ -1,0 +1,25 @@
+nav#ribbon {
+    visibility: hidden;
+}
+
+div#shell {
+    padding-top: 0px !important
+    ;
+}
+
+div#supplemental-1 {
+    display: none;;
+}
+
+section#related-combined-coverage {
+    display: none;
+}
+
+section#whats-next {
+    display: none;
+}
+
+aside.module.trending-module.nocontent.robots-nocontent {
+    display: none;
+
+}

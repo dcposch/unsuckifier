@@ -1,0 +1,15 @@
+.m-linkset {
+    display: none;
+}
+
+.m-entry__sidebar {
+    visibility: hidden;
+}
+
+ul.p-entry-nav {
+    display: none;
+}
+
+ul.p-entry-header__labels {
+    display:  none;
+}
