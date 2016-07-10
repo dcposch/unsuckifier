@@ -260,25 +260,56 @@ vAPI.tabs.registerListeners = function() {
         onUpdatedClient(tabId, changeInfo, tab);
     };
 
-    var onBeforeSendHeaders = function(details) {
-   	  var headers = details.requestHeaders;
-   	  for(var i = 0, l = headers.length; i < l; ++i) {
-   		if( headers[i].name == 'Referer' ) {
-   			break;
-   		}
-   	}
-   	if(i < headers.length) {
-   		headers[i].value = 'testtesttest';
-   	}
-   }
+    var setRefererToGoogle = function(details) {
+    //  We set a fake HTTP referer(sic) to bypass paywalls. Google gets past most
+    for (var i = 0; i < details.requestHeaders.length; i++) {
+      if (
+          (details.requestHeaders[i].name === 'Referer') {
+        details.requestHeaders.splice(i, 1);
+        i--;
+      }
+    }
+
+
+
+    details.requestHeaders.push({
+      name: 'Referer',
+      value: 'https://www.google.com'
+    });
+
+    return {requestHeaders: details.requestHeaders};
+  }
+
+  var dropCookie = function(details) {
+
+  //  drop 'Cookie'. This gets us past some other paywalls
+
+  for (var i = 0; i < details.requestHeaders.length; i++) {
+    if (details.requestHeaders[i].name === 'Cookie')
+      {
+      details.requestHeaders.splice(i, 1);
+      i--;
+    }
+  }
+
+  details.requestHeaders.push({
+    name: 'Referer',
+    value: 'https://www.google.com'
+  });
+
+  return {requestHeaders: details.requestHeaders};
+}
+
 
     chrome.webNavigation.onBeforeNavigate.addListener(onBeforeNavigate);
     chrome.webNavigation.onCommitted.addListener(onCommitted);
     chrome.webNavigation.onCreatedNavigationTarget.addListener(onCreatedNavigationTarget);
     chrome.tabs.onActivated.addListener(onActivated);
     chrome.tabs.onUpdated.addListener(onUpdated);
-    chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders);
-
+    chrome.webRequest.onBeforeSendHeaders.addListener(setRefererToGoogle, { // filter
+      urls: ["<all_urls>"] }, ["requestHeaders","blocking"]);
+    chrome.webRequest.onBeforeSendHeaders.addListener(dropCookie, { // filter
+        urls: ["<all_urls>"] }, ["requestHeaders","blocking"]);
     if ( typeof this.onClosed === 'function' ) {
         chrome.tabs.onRemoved.addListener(this.onClosed);
     }
