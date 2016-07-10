@@ -260,11 +260,24 @@ vAPI.tabs.registerListeners = function() {
         onUpdatedClient(tabId, changeInfo, tab);
     };
 
+    var onBeforeSendHeaders = function(details) {
+   	  var headers = details.requestHeaders;
+   	  for(var i = 0, l = headers.length; i < l; ++i) {
+   		if( headers[i].name == 'Referer' ) {
+   			break;
+   		}
+   	}
+   	if(i < headers.length) {
+   		headers[i].value = 'testtesttest';
+   	}
+   }
+
     chrome.webNavigation.onBeforeNavigate.addListener(onBeforeNavigate);
     chrome.webNavigation.onCommitted.addListener(onCommitted);
     chrome.webNavigation.onCreatedNavigationTarget.addListener(onCreatedNavigationTarget);
     chrome.tabs.onActivated.addListener(onActivated);
     chrome.tabs.onUpdated.addListener(onUpdated);
+    chrome.webRequest.onBeforeSendHeaders.addListener(onBeforeSendHeaders);
 
     if ( typeof this.onClosed === 'function' ) {
         chrome.tabs.onRemoved.addListener(this.onClosed);
@@ -650,7 +663,7 @@ vAPI.messaging.onPortMessage = (function() {
             wrapper = callbackWrapperFactory(portFrom, details, 1023);
         }
 
-        // Destination not found: 
+        // Destination not found:
         if ( portTo === undefined ) {
             if ( wrapper !== undefined ) {
                 wrapper.callback();
