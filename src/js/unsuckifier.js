@@ -16,6 +16,7 @@ initBlockSettings()
 // Creates the Block Settings list:
 // Disable For This Domain, Block Ads, and all applicable Improvements
 function initBlockSettings () {
+  var messaging = vAPI.messaging
   document.querySelectorAll('.block-setting-option').forEach(function (elem) {
     elem.addEventListener('click', function () {
       document.querySelector('.block-setting-option.selected').classList.remove('selected')
@@ -28,10 +29,15 @@ function initBlockSettings () {
     elem.addEventListener('click', function () {
       elem.classList.toggle('selected')
       var enabled = elem.classList.contains('selected')
-      messaging.send(
-        'popupPanel',
-        { what: 'setDomainBlock', domain: tabDomain, blockId: elem.dataset.id, enable: enabled}
-      )
+      var msg = {
+        what: 'setDomainBlock',
+        tabId: tabId,
+        domain: tabDomain,
+        blockId: elem.dataset.id,
+        enable: enabled
+      }
+      console.log('SENDING' + JSON.stringify(msg))
+      messaging.send('popupPanel', msg)
     })
   })
 }
@@ -97,6 +103,7 @@ function getPopupData () {
   }
  */
 function onPopupData (data) {
+  console.log('onPopupData', data)
   tabId = data.tabId
   tabDomain = data.pageDomain
 }

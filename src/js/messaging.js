@@ -433,7 +433,9 @@ var onMessage = function(request, sender, callback) {
         break;
 
     case 'setDomainBlock':
-        µb.setDomainBlock(request.domain, request.blockId, request.enable)
+        console.log('messaging setDomainBlock ' + request.domain + ' ' + request.blockId + ' ' + request.enable)
+        µb.setDomainBlock(request.domain, request.blockId, request.enable);
+        vAPI.tabs.reload(request.tabId);
         break;
 
     default:
