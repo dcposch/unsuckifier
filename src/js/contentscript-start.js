@@ -141,8 +141,9 @@ var filteringHandler = function(details) {
     var styleTagCount = vAPI.styles.length;
 
     if ( details ) {
+        vAPI.skipCosmeticFiltering = details.skipCosmeticFiltering
         if (
-            (vAPI.skipCosmeticFiltering = details.skipCosmeticFiltering) !== true &&
+            vAPI.skipCosmeticFiltering !== true &&
             (details.cosmeticHide.length !== 0 || details.cosmeticDonthide.length !== 0)
         ) {
             cosmeticFilters(details);
@@ -152,6 +153,9 @@ var filteringHandler = function(details) {
         }
         if ( details.scripts ) {
             injectScripts(details.scripts);
+        }
+        if ( details.css ) {
+            injectCSS(details.css);
         }
         // The port will never be used again at this point, disconnecting allows
         // the browser to flush this script from memory.
@@ -220,6 +224,22 @@ var hideElements = function(selectors) {
         }
     }
 };
+
+/******************************************************************************/
+
+// Add custom CSS to a page
+// TODO dcposch
+var customStyle = function() {
+    if ( document.body === null ) {
+        return;
+    }
+    var css = 'h1 { background: red !important; }';
+    var style = document.createElement('style');
+
+    style.type = 'text/css';
+    style.appendChild(document.createTextNode(css));
+    document.head.appendChild(style);
+}
 
 /******************************************************************************/
 

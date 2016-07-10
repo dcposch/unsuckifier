@@ -93,7 +93,7 @@ return {
     // read-only
     systemSettings: {
         compiledMagic: 'nytangedtvcz',
-        selfieMagic: 'emzolxctioww'
+        selfieMagic: 'emzolxctiowx'
     },
 
     restoreBackupSettings: {

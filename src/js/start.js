@@ -86,7 +86,9 @@ var onAllReady = function() {
 // Filtering engines dependencies:
 // - PSL
 
+console.log("WAT")
 var onPSLReady = function() {
+    console.log("YEAHH")
     µb.loadFilterLists(onAllReady);
 };
 
@@ -208,6 +210,7 @@ var onSystemSettingsReady = function(fetched) {
 var onFirstFetchReady = function(fetched) {
     // https://github.com/gorhill/uBlock/issues/747
     µb.firstInstall = fetched.version === '0.0.0.0';
+    console.log('ON FIRST FETCH');
 
     // Order is important -- do not change:
     onSystemSettingsReady(fetched);
@@ -219,10 +222,12 @@ var onFirstFetchReady = function(fetched) {
 
     // If we have a selfie, skip loading PSL, filters
     if ( onSelfieReady(fetched.selfie) ) {
+        console.log('SELFIE AVAILABLE, NOT LOADING PSL');
         onAllReady();
         return;
     }
 
+    console.log('LOADING PSL');
     µb.loadPublicSuffixList(onPSLReady);
 };
 
@@ -274,12 +279,14 @@ var onAdminSettingsRestored = function() {
     toFetch(µb.userSettings, fetchableProps);
     toFetch(µb.restoreBackupSettings, fetchableProps);
 
+    console.log('ABOUT TO GET FETCHABLE PROPS')
     vAPI.storage.get(fetchableProps, onFirstFetchReady);
 };
 
 /******************************************************************************/
 
 return function() {
+    console.log('ABOUT TO RESTORE ADMIN SETTINGS')
     // https://github.com/gorhill/uBlock/issues/531
     µb.restoreAdminSettings(onAdminSettingsRestored);
 };

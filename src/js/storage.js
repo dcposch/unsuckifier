@@ -376,6 +376,8 @@
 µBlock.loadingFilterLists = false;
 
 µBlock.loadFilterLists = function(callback) {
+    console.log('LOAD FILTER LIST');
+
     // Callers are expected to check this first.
     if ( this.loadingFilterLists ) {
         return;

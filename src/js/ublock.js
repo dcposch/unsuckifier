@@ -336,7 +336,6 @@ var matchWhitelistDirective = function(url, hostname, directive) {
   // TODO: save preference to stoage.js
 }
 
-
 /******************************************************************************/
 
 µBlock.toggleFirewallRule = function(details) {
