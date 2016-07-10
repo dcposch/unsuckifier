@@ -263,8 +263,7 @@ vAPI.tabs.registerListeners = function() {
     var setRefererToGoogle = function(details) {
     //  We set a fake HTTP referer(sic) to bypass paywalls. Google gets past most
     for (var i = 0; i < details.requestHeaders.length; i++) {
-      if (
-          (details.requestHeaders[i].name === 'Referer') {
+      if (details.requestHeaders[i].name === 'Referer') {
         details.requestHeaders.splice(i, 1);
         i--;
       }
@@ -306,10 +305,13 @@ vAPI.tabs.registerListeners = function() {
     chrome.webNavigation.onCreatedNavigationTarget.addListener(onCreatedNavigationTarget);
     chrome.tabs.onActivated.addListener(onActivated);
     chrome.tabs.onUpdated.addListener(onUpdated);
+
+    // #TODO lipi figure out how filtering works and setup filtering rules
+    var refererFilter = {}
     chrome.webRequest.onBeforeSendHeaders.addListener(setRefererToGoogle, { // filter
-      urls: ["<all_urls>"] }, ["requestHeaders","blocking"]);
-    chrome.webRequest.onBeforeSendHeaders.addListener(dropCookie, { // filter
-        urls: ["<all_urls>"] }, ["requestHeaders","blocking"]);
+      urls: ["*://*.wsj.com/*"] }, ["requestHeaders","blocking"]);
+     chrome.webRequest.onBeforeSendHeaders.addListener(dropCookie, { // filter
+        urls: ["*://*.nytimes.com/*", "*://*.economist.com/*", "*://*.wsj.com/*"] }, ["requestHeaders","blocking"]);
     if ( typeof this.onClosed === 'function' ) {
         chrome.tabs.onRemoved.addListener(this.onClosed);
     }
