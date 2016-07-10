@@ -1270,3 +1270,42 @@ block-reader-theverge.com.js application/javascript
 	style.appendChild(document.createTextNode(css));
 	document.head.appendChild(style);
 })();
+
+youtube.com.js application/javascript
+(function() {
+console.log('YOUTUBE AUTOPLAY2');
+var video = null;
+var count = 0;
+var href = window.location.href;
+var repeat;
+var setTimeoutCalled = false;
+function stopInterval() {
+	clearInterval(repeat);
+	console.log('\n\n\n');
+	console.log('VIDEO PROPERLY PAUSED!');
+	console.log("CODE IN INTERVAL CALLED " + count + " TIMES");
+}
+function recallThisMethod() {
+	count++;
+	while(video === null) {
+		video = document.querySelector('video');
+	}
+	if(video.paused) {
+		console.log(video);
+		video.pause();
+		console.log('NOW THE VIDEO IS PAUSED BUT SOMETIMES IT IS A LIE!');
+		if(!setTimeoutCalled) {
+			setTimeout(stopInterval, 3000);
+			setTimeoutCalled = true;
+		}
+	} else {
+		console.log('trying to pause');
+		video.pause();
+	}
+}
+if(href.substring(0, 28) == "http://www.youtube.com/watch" || href.substring(0, 29) == "https://www.youtube.com/watch") {
+	repeat = setInterval(recallThisMethod, 50);
+} else {
+	console.log("EXTENSION CAN'T RUN");
+}
+})();

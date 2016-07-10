@@ -295,6 +295,8 @@ vAPI.tabs.registerListeners = function() {
 }
 
 
+
+
     chrome.webNavigation.onBeforeNavigate.addListener(onBeforeNavigate);
     chrome.webNavigation.onCommitted.addListener(onCommitted);
     chrome.webNavigation.onCreatedNavigationTarget.addListener(onCreatedNavigationTarget);
