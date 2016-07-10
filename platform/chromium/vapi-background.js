@@ -291,11 +291,6 @@ vAPI.tabs.registerListeners = function() {
     }
   }
 
-  details.requestHeaders.push({
-    name: 'Referer',
-    value: 'https://www.google.com'
-  });
-
   return {requestHeaders: details.requestHeaders};
 }
 
@@ -309,9 +304,9 @@ vAPI.tabs.registerListeners = function() {
     // #TODO lipi figure out how filtering works and setup filtering rules
     var refererFilter = {}
     chrome.webRequest.onBeforeSendHeaders.addListener(setRefererToGoogle, { // filter
-      urls: ["*://*.wsj.com/*"] }, ["requestHeaders","blocking"]);
+      urls: ["*://*.wsj.com/*", "*://*.nytimes.com/*"] }, ["requestHeaders","blocking"]);
      chrome.webRequest.onBeforeSendHeaders.addListener(dropCookie, { // filter
-        urls: ["*://*.nytimes.com/*", "*://*.economist.com/*", "*://*.wsj.com/*"] }, ["requestHeaders","blocking"]);
+        urls: [ "*://*.economist.com/*", "*://*.wsj.com/*", "*://*.thediplomat.com/*", "*://*.foreignpolicy.com/*", "*://*.washingtonpost.com/*", "*://*.newyorker.com/*"] }, ["requestHeaders","blocking"]);
     if ( typeof this.onClosed === 'function' ) {
         chrome.tabs.onRemoved.addListener(this.onClosed);
     }

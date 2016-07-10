@@ -219,4 +219,63 @@ return {
 })();
 
 /******************************************************************************/
+/**
+ * Background script for Forbes.
+ * @author me@nishantarora.in (Nishant Arora)
+ */
 
+// Namespace.
+var forbesUnsplash = {};
+
+// Filters.
+forbesUnsplash.urlPatterns = { urls: ["*://*.forbes.com/*"] };
+
+// Specs.
+forbesUnsplash.howTo = [ "blocking" ];
+
+
+/**
+ * Forbes see the middle finger.
+ * @param {object} data
+ */
+forbesUnsplash.unsplashCallBack = function(data) {
+  if(!/\.(js|css|png|jpg|jpeg|webp|gif|svg)/g.test(data.url)){
+    forbesUnsplash.bakeCookie(
+        'dailyWelcomeCookie', 'dailyCookie_forDate', data.url);
+    forbesUnsplash.bakeCookie(
+        'welcomeAd', 'sessionCookie__welcome', data.url);
+  }
+};
+
+
+/**
+ * Bake cookies
+ */
+forbesUnsplash.bakeCookie = function(flavor, nuts, chocoChip){
+  chrome.cookies.set({
+      'url'     : chocoChip,
+      'name'    : flavor,
+      'value'   : nuts,
+      'domain'  : '.forbes.com',
+      'path'    : '/'
+    }, function(cookie){
+      if(cookie != null){
+        console.log(JSON.stringify(cookie));
+      } else {
+        console.log(chrome.runtime.lastError);
+      }
+    });
+};
+
+
+/**
+ * Performing actions if the url is found.
+ */
+chrome.webRequest.onBeforeRequest.addListener(
+  // Checking if it is not redirecting to all steps.
+  forbesUnsplash.unsplashCallBack,
+  // Applies to following url patterns
+  forbesUnsplash.urlPatterns,
+  // In request blocking mode
+  forbesUnsplash.howTo
+);
