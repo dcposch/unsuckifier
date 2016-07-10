@@ -330,6 +330,15 @@ var matchWhitelistDirective = function(url, hostname, directive) {
 
 /******************************************************************************/
 
+µBlock.setDomainBlock = function(domain, blockId) {
+  // TODO: fetch block by blockId
+  // TODO: apply block (modifies per-domain settings)
+  // TODO: save preference to stoage.js
+}
+
+
+/******************************************************************************/
+
 µBlock.toggleFirewallRule = function(details) {
     var requestType = details.requestType;
 

@@ -1,29 +1,96 @@
+// This is the popup / dropdown panel that appears when you click the
+// Unsuckifier logo. Lets the user:
+// * See the status (# of requests blocked on this page, etc)
+// * Change the block setting for the current domain
+//   (Don't Block Ads On This Domain vs Block Ads, select or deselect Improvements)
 (function() {
 
-document.write('testing')
+// State
+var tabId = null
+var tabDomain = null
 
-document.querySelectorAll('.block-setting-option').forEach(function (elem) {
-  elem.addEventListener('click', function () {
-    document.querySelector('.block-setting-option.selected').classList.remove('selected')
-    elem.classList.add('selected')
+// Fetch state, add click handlers, initialize the UI
+getPopupData()
+initBlockSettings()
+
+// Creates the Block Settings list:
+// Disable For This Domain, Block Ads, and all applicable Improvements
+function initBlockSettings () {
+  document.querySelectorAll('.block-setting-option').forEach(function (elem) {
+    elem.addEventListener('click', function () {
+      document.querySelector('.block-setting-option.selected').classList.remove('selected')
+      elem.classList.add('selected')
+      messaging.send(
+        'popupPanel',
+        { what: 'setDomainBlock', domain: tabDomain, blockId: elem.dataset.id }
+      )
+    })
   })
-})
-
-document.write('1')
-
-var messaging = vAPI.messaging
-messaging.send(
-  'popupPanel',
-  { what: 'getPopupData', tabId: tabId },
-  onDataReceived
-)
-
-document.write('2')
-
-function onDataReceived (data) {
-  document.write('<tt>' + JSON.stringify(data, null, 2))
 }
 
-document.write('3')
+// Sends a getPopupData request, updates the UI on response
+function getPopupData () {
+  var messaging = vAPI.messaging
+  messaging.send(
+    'popupPanel',
+    { what: 'getPopupData', tabId: null },
+    onPopupData
+  )
+}
+
+/* Receives the getPopupData response. Example:
+  {
+    "advancedUserEnabled": true,
+    "appName": "Unsuckifier",
+    "appVersion": "1.7.5",
+    "colorBlindFriendly": false,
+    "cosmeticFilteringSwitch": false,
+    "dfEnabled": false,
+    "firewallPaneMinimized": true,
+    "globalAllowedRequestCount": 33406,
+    "globalBlockedRequestCount": 2525,
+    "netFilteringSwitch": true,
+    "rawURL": "chrome://extensions/",
+    "pageURL": "http://extensions.chrome-scheme/",
+    "pageHostname": "extensions.chrome-scheme",
+    "pageDomain": "extensions.chrome-scheme",
+    "pageAllowedRequestCount": 0,
+    "pageBlockedRequestCount": 0,
+    "popupBlockedCount": 0,
+    "tabId": 151,
+    "tabTitle": "Extensions",
+    "tooltipsDisabled": false,
+    "hostnameDict": {},
+    "contentLastModified": 0,
+    "firewallRules": {
+      "/ * *": "",
+      "/ * image": "",
+      "/ * 3p": "",
+      "/ * inline-script": "",
+      "/ * 1p-script": "",
+      "/ * 3p-script": "",
+      "/ * 3p-frame": "",
+      ". * *": "",
+      ". * image": "",
+      ". * 3p": "",
+      ". * inline-script": "",
+      ". * 1p-script": "",
+      ". * 3p-script": "",
+      ". * 3p-frame": ""
+    },
+    "canElementPicker": true,
+    "noPopups": false,
+    "noCosmeticFiltering": false,
+    "noLargeMedia": false,
+    "largeMediaCount": 0,
+    "noRemoteFonts": false,
+    "remoteFontCount": 0,
+    "matrixIsDirty": false
+  }
+ */
+function onPopupData (data) {
+  tabId = data.tabId
+  tabDomain = data.pageDomain
+}
 
 })()

@@ -432,6 +432,10 @@ var onMessage = function(request, sender, callback) {
         }
         break;
 
+    case 'setDomainBlock':
+        µb.setDomainBlock(request.domain, request.blockId)
+        break;
+
     default:
         return vAPI.messaging.UNHANDLED;
     }
