@@ -3,12 +3,11 @@ nav#ribbon {
 }
 
 div#shell {
-    padding-top: 0px !important
-    ;
+    padding-top: 0px !important;
 }
 
 div#supplemental-1 {
-    display: none;;
+    display: none;
 }
 
 section#related-combined-coverage {
@@ -21,5 +20,4 @@ section#whats-next {
 
 aside.module.trending-module.nocontent.robots-nocontent {
     display: none;
-
 }

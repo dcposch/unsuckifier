@@ -1091,19 +1091,24 @@ var readCacheAsset = function(path, callback) {
 exports.get = function(path, callback) {
 
     if ( reIsUserPath.test(path) ) {
+        console.log('ub.assets.get ' + path + ' user')
         readUserAsset(path, callback);
         return;
     }
 
     if ( reIsCachePath.test(path) ) {
+        console.log('ub.assets.get ' + path + ' cache')
         readCacheAsset(path, callback);
         return;
     }
 
     if ( reIsExternalPath.test(path) ) {
+        console.log('ub.assets.get ' + path + ' external')
         readExternalAsset(path, callback);
         return;
     }
+
+    console.log('ub.assets.get ' + path + ' meta')
 
     var onRepoMetaReady = function(meta) {
         var assetEntry = meta.entries[path];

@@ -1147,7 +1147,7 @@ gpt-defuser.js application/javascript
 	while ( props.length ) {
 		var prop = props.pop();
 		if ( typeof window[prop] === 'function' ) {
-			window[prop] = noopfn; 
+			window[prop] = noopfn;
 		} else {
 			Object.defineProperty(window, prop, {
 				get: function() { return noopfn; },
@@ -1242,4 +1242,21 @@ __$dc-defuser.js application/javascript
 # TODO dcposch: ideally, replace this shit with CSS injection thru vAPI
 # nytimes.com
 nytimes.com.js application/javascript
-console.log('HELLO NYTIMES!')
+(function() {
+	console.log('NYTIMES STYLE 1');
+	var css = 'nav#ribbon{visibility:hidden}div#shell{padding-top:0!important}aside.module.trending-module.nocontent.robots-nocontent,div#supplemental-1,section#related-combined-coverage,section#whats-next{display:none}';
+	var style = document.createElement('style');
+	style.type = 'text/css';
+	style.appendChild(document.createTextNode(css));
+	document.head.appendChild(style);
+})();
+
+theverge.com.js application/javascript
+(function() {
+	console.log('VERGE STYLE 2');
+	var css = '.m-linkset,ul.p-entry-header__labels,ul.p-entry-nav{display:none}.m-entry__sidebar{visibility:hidden}.m-big-stories__main{display:none}';
+	var style = document.createElement('style');
+	style.type = 'text/css';
+	style.appendChild(document.createTextNode(css));
+	document.head.appendChild(style);
+})();

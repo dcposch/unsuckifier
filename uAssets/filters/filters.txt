@@ -422,3 +422,4 @@ mangas-fr.com##script:inject(__$dc-defuser.js)
 
 ! TODO dcposch: move everything below this line to its own frame
 nytimes.com##script:inject(nytimes.com.js)
+theverge.com##script:inject(theverge.com.js)

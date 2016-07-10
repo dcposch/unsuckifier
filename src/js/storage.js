@@ -275,6 +275,7 @@
             µb.autoSelectFilterLists(availableLists);
         }
 
+        console.log('onSelectedListsLoaded', availableLists);
         callback(availableLists);
     };
 
@@ -302,6 +303,7 @@
         }
 
         // Now get user's selection of lists
+        console.log('onBuiltinListsLoaded, getting selected lists');
         vAPI.storage.get(
             { 'remoteBlacklists': availableLists },
             onSelectedListsLoaded
@@ -376,7 +378,7 @@
 µBlock.loadingFilterLists = false;
 
 µBlock.loadFilterLists = function(callback) {
-    console.log('LOAD FILTER LIST');
+    console.log('loadFilterLists');
 
     // Callers are expected to check this first.
     if ( this.loadingFilterLists ) {
@@ -484,6 +486,7 @@
 
 µBlock.getCompiledFilterList = function(path, callback) {
     var compiledPath = this.getCompiledFilterListPath(path);
+    console.log('getCompiledFilterList ' + path + ': ' + compiledPath);
     var µb = this;
 
     var onRawListLoaded = function(details) {

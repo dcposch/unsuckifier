@@ -930,7 +930,6 @@ FilterContainer.prototype.fromCompiledContent = function(text, lineBeg, skip) {
         if ( fields[0] === 'h' ) {
             // Special filter: script tags. Not a real CSS selector.
             if ( fields[3].startsWith('script') ) {
-                console.log('script filter alert', fields);
                 this.createScriptFilter(fields[2], fields[3].slice(6));
                 continue;
             }
@@ -1092,6 +1091,7 @@ FilterContainer.prototype.retrieveScriptTagRegex = function(domain, hostname) {
 /******************************************************************************/
 
 FilterContainer.prototype.createScriptTagInjector = function(hostname, s) {
+    console.log('createScriptTagInjector ' + hostname + ' ' + s);
     if ( this.scriptTags.hasOwnProperty(hostname) ) {
         this.scriptTags[hostname].push(s);
     } else {
@@ -1129,6 +1129,7 @@ FilterContainer.prototype.retrieveScriptTags = function(domain, hostname) {
     for (;;) {
         rnames = this.scriptTags[hn];
         i = rnames && rnames.length || 0;
+        if (i > 0) console.log('TODO dcposch hn scripts', hn, rnames);
         while ( i-- ) {
             if ( (content = reng.resourceContentFromName(rnames[i], 'application/javascript')) ) {
                 out.push(content);
@@ -1145,8 +1146,10 @@ FilterContainer.prototype.retrieveScriptTags = function(domain, hostname) {
     }
     pos = domain.indexOf('.');
     if ( pos !== -1 ) {
-        rnames = this.scriptTags[domain.slice(0, pos)];
+        hn = domain.slice(0, pos);
+        rnames = this.scriptTags[hn];
         i = rnames && rnames.length || 0;
+        if (i > 0) console.log('TODO dcposch domain scripts', hn, rnames);
         while ( i-- ) {
             if ( (content = reng.resourceContentFromName(rnames[i], 'application/javascript')) ) {
                 out.push(content);
