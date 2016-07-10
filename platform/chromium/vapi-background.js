@@ -523,6 +523,16 @@ vAPI.tabs.injectScript = function(tabId, details, callback) {
 };
 
 /******************************************************************************/
+
+// TODO dcposch: do we need this?
+// Injects a stylesheet that runs before all others in the page.
+// tabId is optional and defaults to the current tab
+// details should be an object, {code} or {file}
+vAPI.tabs.injectCSS = function(tabId, details) {
+    console.debug('Injecting CSS');
+    chrome.tabs.insertCSS(tabId, details);
+}
+
 /******************************************************************************/
 
 // Must read: https://code.google.com/p/chromium/issues/detail?id=410868#c8
@@ -650,7 +660,7 @@ vAPI.messaging.onPortMessage = (function() {
             wrapper = callbackWrapperFactory(portFrom, details, 1023);
         }
 
-        // Destination not found: 
+        // Destination not found:
         if ( portTo === undefined ) {
             if ( wrapper !== undefined ) {
                 wrapper.callback();

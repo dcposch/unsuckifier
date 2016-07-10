@@ -840,11 +840,13 @@ FilterContainer.prototype.compileGenericSelector = function(parsed, out) {
     out.push('c\vhhg0\v' + selector);
 };
 
+var reHighLow = /^[a-z]*\[(?:alt|title)="[^"]+"\]$/;
+var reHighMedium = /^\[href\^="https?:\/\/([^"]{8})[^"]*"\]$/;
 FilterContainer.prototype.reClassOrIdSelector = /^[#.][\w-]+$/;
 FilterContainer.prototype.rePlainSelector = /^[#.][\w-]+/;
 FilterContainer.prototype.rePlainSelectorEx = /^[^#.\[(]+([#.][\w-]+)/;
-FilterContainer.prototype.reHighLow = /^[a-z]*\[(?:alt|title)="[^"]+"\]$/;
-FilterContainer.prototype.reHighMedium = /^\[href\^="https?:\/\/([^"]{8})[^"]*"\]$/;
+FilterContainer.prototype.reHighLow = reHighLow;
+FilterContainer.prototype.reHighMedium = reHighMedium;
 
 /******************************************************************************/
 
@@ -928,6 +930,7 @@ FilterContainer.prototype.fromCompiledContent = function(text, lineBeg, skip) {
         if ( fields[0] === 'h' ) {
             // Special filter: script tags. Not a real CSS selector.
             if ( fields[3].startsWith('script') ) {
+                console.log('script filter alert', fields);
                 this.createScriptFilter(fields[2], fields[3].slice(6));
                 continue;
             }
@@ -1097,6 +1100,17 @@ FilterContainer.prototype.createScriptTagInjector = function(hostname, s) {
     this.scriptTagCount += 1;
 };
 
+/******************************************************************************/
+
+// TODO dcposch: take domain,hostname and combine with the below
+FilterContainer.prototype.retrieveCSS = function (domain) {
+  // TODO dcposch:
+  // * add CSS injection filter syntax
+  // * try to do it w/out changing the compiled filter syntax and "selfie" cache
+  // * add FilterContainer (this).cssByDomain
+  // * look up injected CSS just from domain hash lookup
+  // * use the vAPI call to inject CSS *before* document-start
+}
 
 /******************************************************************************/
 
@@ -1108,6 +1122,8 @@ FilterContainer.prototype.retrieveScriptTags = function(domain, hostname) {
     if ( !reng ) {
         return;
     }
+
+    // Search this.scriptNames for foo.bar.baz.com, ..., finally for baz.com
     var out = [],
         hn = hostname, pos, rnames, i, content;
     for (;;) {
@@ -1429,7 +1445,9 @@ FilterContainer.prototype.retrieveDomainSelectors = function(request) {
 
     //quickProfiler.start('FilterContainer.retrieve()');
 
+    // Hostname, eg foo.bar.baz.co.uk
     var hostname = this.µburi.hostnameFromURI(request.locationURL);
+    // One level below the TLD (as determened by the PSL / Public Suffix List), eg baz.co.uk
     var domain = this.µburi.domainFromHostname(hostname) || hostname;
     var pos = domain.indexOf('.');
 
@@ -1446,7 +1464,8 @@ FilterContainer.prototype.retrieveDomainSelectors = function(request) {
         cosmeticDonthide: [],
         netHide: [],
         netCollapse: µb.userSettings.collapseBlocked,
-        scripts: this.retrieveScriptTags(domain, hostname)
+        scripts: this.retrieveScriptTags(domain, hostname),
+        css: null // TODO dcposch
     };
 
     var hash, bucket;
