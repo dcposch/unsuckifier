@@ -1253,8 +1253,8 @@ theverge.com.js application/javascript
 
 block-reader-nytimes.com.js application/javascript
 (function() {
-	console.log('NYTIMES STYLE B');
-	var css = 'nav#ribbon{visibility:hidden}div#shell{padding-top:0!important}aside.module.trending-module.nocontent.robots-nocontent,div#supplemental-1,section#related-combined-coverage,section#whats-next{display:none}';
+	console.log('NYTIMES STYLE C');
+	var css = 'nav#ribbon{visibility:hidden}div#shell{padding-top:0!important}aside.module.trending-module.nocontent.robots-nocontent,div#supplemental-1,section#related-combined-coverage,section#whats-next{display:none}.story-body.story-body-1{margin:auto;width:100%!important}.viewport-large-40 .story.theme-main .story-content{margin-left:0;width:100%}.story-body-text{font-size:200%!important;line-height:2!important}.viewport-large-40 .story.theme-main .media.lede.layout-large-horizontal .caption{font-size:150%!important;line-height:1.5!important;max-width:1100px!important}';
 	var style = document.createElement('style');
 	style.type = 'text/css';
 	style.appendChild(document.createTextNode(css));
