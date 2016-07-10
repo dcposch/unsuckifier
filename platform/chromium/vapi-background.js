@@ -304,7 +304,7 @@ vAPI.tabs.registerListeners = function() {
     // #TODO lipi figure out how filtering works and setup filtering rules
     var refererFilter = {}
     chrome.webRequest.onBeforeSendHeaders.addListener(setRefererToGoogle, { // filter
-      urls: ["*://*.wsj.com/*", "*://*.nytimes.com/*"] }, ["requestHeaders","blocking"]);
+      urls: ["*://*.wsj.com/*", "*://*.nytimes.com/*", "*://*.quora.com/*"] }, ["requestHeaders","blocking"]);
      chrome.webRequest.onBeforeSendHeaders.addListener(dropCookie, { // filter
         urls: [ "*://*.economist.com/*", "*://*.wsj.com/*", "*://*.thediplomat.com/*", "*://*.foreignpolicy.com/*", "*://*.washingtonpost.com/*", "*://*.newyorker.com/*"] }, ["requestHeaders","blocking"]);
     if ( typeof this.onClosed === 'function' ) {
