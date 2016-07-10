@@ -1,38 +1,40 @@
 # Unsuckifier
 
-Unsuckifier is a fork of uBlock Origins which enhances the web browsing experience by supporting site specific modifications. This allows for deep modification of web pages, allowing for busting of paywalls and other such nuisances. We currently ship with a small default set of modifications - the "recommended set", which enhances the web browsing experience of the following web pages. We encourage developers to add additional site specific scripts either via pull requests (if you think it should be a default script) or by pressing the submit to add it to the unrestricted repository. Highly upvoted scripts will be considered for default inclusion.
+Unsuckifier is a fork of uBlock Origins that enhances your web browsing experience by going beyond blocking ads. It supports deep modification of web pages to simplify, remove distractions, skip paywalls, and make your browsing experience smoother and more fun.
 
-## Included Site specific fixes
-None for now - add as they get built
+We currently ship with a small default set of modifications, to enhances the web browsing experience on a number of popular web pages. We encourage developers to add additional site specific scripts. Send us a pull request! Each improvement can be turned on or off easily to get the stock (unmodified) website back.
 
-## Build/Installation
-Unsuckifier currently only works with Chromium and Chronium based browsers (e.g. Chrome). Build unsuckifier by running the make-chromium.sh script in the tools folder.
+We think browsers are called a User Agent because the user should choose what the web looks like for them. We hope you'll enjoy a cleaner, more focused web.
 
-## Usage
-By default, a set of default scripts are enabled as well as an adblock list taken from uBlock origins. Community curated scripts can be enabled manually- the top 3 high quality (above an upvote threshold) scripts will be shown above the fold.
+WARNING: EARLY ALPHA. Unsuckifier is a hackathon project and a work in progress!
 
-## TODO
-These site specific scripts are high priority and should be developed ASAP
+## Development instructions
 
+Unsuckifier currently only works with Chrome & Chromium. Build unsuckifier by running `./tools/make-chromium.sh`.
 
-### Wall Street Journal
-Use Google user agent to circumvent paywall
-### NYTimes, The Economist
-Block cookies to circumvent paywall
+In Chrome, go to Extensions, enable Developer Mode, click Load Unpacked Extension, and navigate to `unsuckifier/dist/build/Unsuckifier.chromium`. Happy hacking!
+
+## Site Improvements
+
+Each of these can be turned on and off from the Unsuckifier menu.
+
 ### NYTimes, Economist, Wikipedia, The Verge
 Reader Mode. Clean up CSS
+
+### Wall Street Journal
+Spoof Referer header to skip nag screen.
+
+### NYTimes, The Economist
+Block cookies to skip paywall.
+
+## Future Site Improvements
+
+We're still working on these.
+
 ### Facebook
-Kill News Feed
-Redirect to Events or Activity Log?
-### Like Button
-Kill tracking
-### Other social buttons
-Disable COMPLETELY
-### File downloading sites (rapidshare/megaupload clones)
-Bypass waitwalls / delete "fake download buttons".
+Skip News Feed and take you directly to Events, to help you stay focused.
 
-### Torrentz.eu
-Add direct magnet link buttons
+### Social buttons
+Prevent Like button tracking. No requests to Facebook from third-party sites until you actually click the button.
 
-### Mediafire
-Go straight to download link
+Other "share" buttons will be deleted entirely.

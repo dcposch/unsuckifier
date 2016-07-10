@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
 
-    "name": "uBlock Origin",
-    "version": "1.7.5",
+    "name": "Unsuckifier",
+    "version": "0.0.1",
 
     "default_locale": "en",
     "description": "__MSG_extShortDesc__",
@@ -16,11 +16,11 @@
             "19": "img/browsericons/icon19.png",
             "38": "img/browsericons/icon19.png"
         },
-        "default_title": "uBlock Origin",
+        "default_title": "Unsuckifier",
         "default_popup": "popup.html"
     },
 
-    "author": "All uBlock Origin contributors",
+    "author": "All Unsuckifier and uBlock Origin contributors",
     "background": {
         "page": "background.html"
     },

@@ -42,7 +42,7 @@ function getPopupData () {
   {
     "advancedUserEnabled": true,
     "appName": "Unsuckifier",
-    "appVersion": "1.7.5",
+    "appVersion": "0.0.1",
     "colorBlindFriendly": false,
     "cosmeticFilteringSwitch": false,
     "dfEnabled": false,
